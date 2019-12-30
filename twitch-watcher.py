@@ -53,7 +53,7 @@ def findStreamer(driver):
 
     raw_html = driver.page_source
 
-    if raw_html.count("OFFLINE") != 0:
+    if raw_html.count("OFFLINE") != 0 or raw_html.upper().count("HOST") > 0:
         findStreamer(driver)
     else:
         time.sleep(1000)
