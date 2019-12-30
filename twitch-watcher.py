@@ -50,7 +50,6 @@ def checkOfflineOrHostingOrNotPlaying(raw_html, streamer):
         findStreamer(driver)
     elif raw_html.upper().count("NOW HOSTING") > 0:
         print("HOST FOUND!")
-        print(raw_html)
         findStreamer(driver)
     elif raw_html.upper().count("ESCAPE FROM TARKOV") == 0:
         print("NOT PLAYING TARKOV!")
@@ -60,6 +59,15 @@ def checkOfflineOrHostingOrNotPlaying(raw_html, streamer):
         findStreamer(driver)
     else:
         print(streamer + " has not went offline, started hosting, or stopped playing Tarkov.")
+
+def refresh(driver, streamer):
+    try:
+        driver.get('https://www.twitch.tv/' + streamer)
+    except selenium.common.exceptions.TimeoutException:
+        print("Timeout exception!")
+        findStreamer(driver)
+        return
+
 
 def findStreamer(driver):
     list_of_streamers = ['kotton', 'smoke', 'hc_diZee', 'jennajulien', 'klean', 'fortyone', 'pestily', 'sacriel', 'partiallyroyal', 'sacriel', 'quattroace', 'slushpuppy',
@@ -75,7 +83,7 @@ def findStreamer(driver):
         findStreamer(driver)
         return
 
-    time.sleep(10)
+    time.sleep(30)
 
     checkMaturity(driver, randomStreamer)
 
@@ -85,8 +93,11 @@ def findStreamer(driver):
 
     while 1:
         time.sleep(300)
+        refresh(driver, randomStreamer)
         raw_html = driver.page_source
         checkOfflineOrHostingOrNotPlaying(raw_html, randomStreamer)
+
+
 
 
 
