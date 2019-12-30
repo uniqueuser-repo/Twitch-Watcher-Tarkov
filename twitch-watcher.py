@@ -65,8 +65,11 @@ def findStreamer(driver):
 
     randomStreamer = random.choice(list_of_streamers)
     print("Chosen streamer: " + randomStreamer)
+    try:
+        driver.get('https://www.twitch.tv/' + randomStreamer)
+    except selenium.common.exceptions.TimeoutException:
+        findStreamer(driver)
 
-    driver.get('https://www.twitch.tv/' + randomStreamer)
     time.sleep(10)
 
     checkMaturity(driver, randomStreamer)
