@@ -55,6 +55,9 @@ def checkOfflineOrHostingOrNotPlaying(raw_html, streamer):
     elif raw_html.upper().count("ESCAPE FROM TARKOV") == 0:
         print("NOT PLAYING TARKOV!")
         findStreamer(driver)
+    elif raw_html.upper().count("FOLLOW AND GET NOTIFIED WHEN") > 0:
+        print ("OFFLINE FOUND VIA ROUTE 2!")
+        findStreamer(driver)
     else:
         print(streamer + " has not went offline, started hosting, or stopped playing Tarkov.")
 
