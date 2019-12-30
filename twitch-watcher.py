@@ -22,7 +22,7 @@ def login():
 
 
     driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
-    driver.set_page_load_timeout(45)
+    driver.set_page_load_timeout(180)
     driver.get("https://www.twitch.tv/login")
 
     userbox = driver.find_element_by_xpath('//*[@id="login-username"]')
@@ -68,7 +68,9 @@ def findStreamer(driver):
     try:
         driver.get('https://www.twitch.tv/' + randomStreamer)
     except selenium.common.exceptions.TimeoutException:
+        print("Timeout exception!")
         findStreamer(driver)
+        return
 
     time.sleep(10)
 
