@@ -30,7 +30,13 @@ def login():
 
     return driver
 
-def checkMaturity():
+def checkMaturity(driver, randomStreamer):
+    try:
+        button = driver.find_element_by_xpath(
+            '//*[@id="root"]/div/div[2]/div/main/div[2]/div[3]/div/div/div[2]/div/div[2]/div/div/div/div[9]/div/div[3]/button')  # "start watching" for mature audiences button
+        button.click()
+    except selenium.common.exceptions.NoSuchElementException:
+        print(randomStreamer + " is not marked as 'for mature audiences'.")
 
 
 def findStreamer(driver):
@@ -43,11 +49,7 @@ def findStreamer(driver):
 
     driver.get('https://www.twitch.tv/' + randomStreamer)
 
-    try:
-        button = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/main/div[2]/div[3]/div/div/div[2]/div/div[2]/div/div/div/div[9]/div/div[3]/button') # "start watching" for mature audiences button
-        button.click()
-    except selenium.common.exceptions.NoSuchElementException:
-        print("Streamer is not marked as 'for mature audiences'.")
+    checkMaturity(driver, randomStreamer)
 
     raw_html = driver.page_source
 
