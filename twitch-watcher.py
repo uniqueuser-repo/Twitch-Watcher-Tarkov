@@ -32,7 +32,7 @@ def login():
 
     login_button = driver.find_element_by_xpath('/html/body/div[2]/div/div/div/div/div/div[1]/div/div/div[3]/form/div/div[3]/button')
     login_button.click()
-    time.sleep(20)
+    time.sleep(180)
 
     return driver
 
