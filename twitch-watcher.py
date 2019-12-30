@@ -14,14 +14,14 @@ def connect():
 
     assert len(sys.argv) == 3 # ensure that the number of passed arguments is 3
 
-    #chrome_options = Options()                                      #
+    chrome_options = Options()
     #chrome_options.add_argument("--headless")                       # if commented, browser visible.
     #chrome_options.add_argument("--window-size=%s" % "1920,1080")   #
-    #chrome_options.add_argument("--disable-dev-shm-usage")          #
-    #chrome_options.add_argument("--no-sandbox")                     #
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
 
 
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
     driver.get("https://www.twitch.tv/login")
 
     userbox = driver.find_element_by_xpath('//*[@id="login-username"]')
